@@ -9,24 +9,29 @@ pipeline {
                 sh 'npm install --no-audit'
             }
         }
-        stage('NPM Dependancy Audit'){
-            steps{
-                sh 'npm audit --audit-level=critical'
+        stage('Dependancy Scanning'){
+            parallel {
+                    stage('NPM Dependancy Audit'){
+                        steps{
+                            sh 'npm audit --audit-level=critical'
+                        }
+                    }
+                    stage('OWASP Dependency-Check') {
+                        steps {
+                            script {
+                                def dependencyCheckHome = tool 'owasp' // Ensure it's configured in Jenkins Global Tool Configuration
+                                sh """
+                                    ${dependencyCheckHome}/bin/dependency-check.sh \
+                                    --scan . \
+                                    --format HTML \
+                                    --out reports/
+                                """
+                            }
+                        }
+                    }
             }
         }
-        stage('OWASP Dependency-Check') {
-            steps {
-                script {
-                    def dependencyCheckHome = tool 'owasp' // Ensure it's configured in Jenkins Global Tool Configuration
-                    sh """
-                        ${dependencyCheckHome}/bin/dependency-check.sh \
-                        --scan . \
-                        --format HTML \
-                        --out reports/
-                    """
-                }
-            }
-        }
+        
 
         stage('Publish OWASP Report') {
             steps {
