@@ -37,18 +37,22 @@ pipeline {
                     // }
             }
         }
-        catchError(buildResult: 'SUCCESS', message: 'This stage failed', stageResult: 'UNSTABLE'){
-            stage('Unit testing'){
-                steps{
+        stage('Unit testing'){
+            steps{
+                catchError(buildResult: 'SUCCESS', message: 'This stage failed', stageResult: 'UNSTABLE'){
                     sh 'npm test'
                 }
+                
             }
-            stage('Code Coverage'){
-                steps{
+        }
+        stage('Code Coverage'){
+            steps{
+                catchError(buildResult: 'SUCCESS', message: 'This stage failed', stageResult: 'UNSTABLE'){
                     sh 'npm run coverage'
                 }
             }
         }
+        
 
         stage('Publish Audit Report') {
             steps {
