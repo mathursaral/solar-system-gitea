@@ -13,11 +13,11 @@ pipeline {
             parallel {
                     stage('NPM Dependancy Audit'){
                         steps{
-                            sh '''
+                            sh """
                                 apt-get update -y && apt-get install -y jq
                                 npm audit --audit-level=critical > audit-report.json
                                 cat audit-report.json | jq '.' > audit-report.html
-                            '''
+                            """
 
                         }
                     }
