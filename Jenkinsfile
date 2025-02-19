@@ -3,6 +3,9 @@ pipeline {
     tools {
         nodejs "nodejs"
     }
+    environment {
+        SONAR_SCANNER_HOME = tool 'sonarqube'
+    }
     stages {
         stage('Installing Dependancies'){
             steps {
@@ -50,6 +53,18 @@ pipeline {
                 catchError(buildResult: 'SUCCESS', message: 'This stage failed', stageResult: 'UNSTABLE'){
                     sh 'npm run coverage'
                 }
+            }
+        }
+        stage('SAST Sonarqube'){
+            steps{
+                sh 'echo $SONAR_SCANNER_HOME'
+                sh '''
+                    $SONAR_SCANNER_HOME/bin/sonar-scanner \
+                    -Dsonar.projectKey=nodejs-solar-system \
+                    -Dsonar.sources=app.js \
+                    -Dsonar.host.url=http://localhost:9000 \
+                    -Dsonar.token=sqp_76b0aebbce6e799bd77dd76f52e266c6c29dcf14
+                '''
             }
         }
         
