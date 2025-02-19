@@ -33,14 +33,14 @@ pipeline {
         }
         
 
-        stage('Publish OWASP Report') {
-            steps {
-                publishHTML(target: [
-                    reportDir: 'reports',
-                    reportFiles: 'dependency-check-report.html',
-                    reportName: 'OWASP Dependency Check Report'
-                ])
-            }
-        }
+        // stage('Publish OWASP Report') {
+        //     steps {
+        //         publishHTML(target: [
+        //             reportDir: 'reports',
+        //             reportFiles: 'dependency-check-report.html',
+        //             reportName: 'OWASP Dependency Check Report'
+        //         ])
+        //     }
+        // }
     }
 }
