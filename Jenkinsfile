@@ -14,9 +14,10 @@ pipeline {
                     stage('NPM Dependancy Audit'){
                         steps{
                             sh """
+                                mkdir -p reports
                                 apt-get update -y && apt-get install -y jq
                                 npm audit --audit-level=critical --json > audit-report.json
-                                cat audit-report.json | jq '.' > audit-report.html
+                                cat audit-report.json | jq '.' > reports/audit-report.html
                             """
 
                         }
@@ -42,7 +43,7 @@ pipeline {
             steps {
                 publishHTML(target: [
                     reportDir: 'reports',
-                    reportFiles: 'audit-report.html',
+                    reportFiles: 'reports/audit-report.html',
                     reportName: 'NPM Audit Report'
                 ])
             }
