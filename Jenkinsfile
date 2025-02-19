@@ -42,6 +42,11 @@ pipeline {
                 sh 'npm test'
             }
         }
+        stage('Code Coverage'){
+            steps{
+                sh 'npm run coverage'
+            }
+        }
         
 
         stage('Publish Audit Report') {

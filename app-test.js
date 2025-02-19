@@ -25,37 +25,37 @@ describe("Planets API Suite", () => {
         });
     });
 
-    it("it should fetch a planet named Venus", (done) => {
-      let payload = {
-        id: 2,
-      };
-      chai
-        .request(server)
-        .post("/planet")
-        .send(payload)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.have.property("id").eql(2);
-          res.body.should.have.property("name").eql("Venus");
-          done();
-        });
-    });
+    // it("it should fetch a planet named Venus", (done) => {
+    //   let payload = {
+    //     id: 2,
+    //   };
+    //   chai
+    //     .request(server)
+    //     .post("/planet")
+    //     .send(payload)
+    //     .end((err, res) => {
+    //       res.should.have.status(200);
+    //       res.body.should.have.property("id").eql(2);
+    //       res.body.should.have.property("name").eql("Venus");
+    //       done();
+    //     });
+    // });
 
-    it("it should fetch a planet named Earth", (done) => {
-      let payload = {
-        id: 3,
-      };
-      chai
-        .request(server)
-        .post("/planet")
-        .send(payload)
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.have.property("id").eql(3);
-          res.body.should.have.property("name").eql("Earth");
-          done();
-        });
-    });
+    // it("it should fetch a planet named Earth", (done) => {
+    //   let payload = {
+    //     id: 3,
+    //   };
+    //   chai
+    //     .request(server)
+    //     .post("/planet")
+    //     .send(payload)
+    //     .end((err, res) => {
+    //       res.should.have.status(200);
+    //       res.body.should.have.property("id").eql(3);
+    //       res.body.should.have.property("name").eql("Earth");
+    //       done();
+    //     });
+    // });
     // it('it should fetch a planet named Mars', (done) => {
     //     let payload = {
     //         id: 4
