@@ -16,19 +16,19 @@ pipeline {
                             sh 'npm audit --audit-level=critical'
                         }
                     }
-                    // stage('OWASP Dependency-Check') {
-                    //     steps {
-                    //         script {
-                    //             def dependencyCheckHome = tool 'owasp' // Ensure it's configured in Jenkins Global Tool Configuration
-                    //             sh """
-                    //                 ${dependencyCheckHome}/bin/dependency-check.sh \
-                    //                 --scan . \
-                    //                 --format HTML \
-                    //                 --out reports/
-                    //             """
-                    //         }
-                    //     }
-                    }
+                    // // stage('OWASP Dependency-Check') {
+                    // //     steps {
+                    // //         script {
+                    // //             def dependencyCheckHome = tool 'owasp' // Ensure it's configured in Jenkins Global Tool Configuration
+                    // //             sh """
+                    // //                 ${dependencyCheckHome}/bin/dependency-check.sh \
+                    // //                 --scan . \
+                    // //                 --format HTML \
+                    // //                 --out reports/
+                    // //             """
+                    // //         }
+                    // //     }
+                    // }
             }
         }
         
