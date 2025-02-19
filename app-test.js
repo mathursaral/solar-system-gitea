@@ -1,3 +1,4 @@
+process.env.NODE_ENV = "test"; // Set environment to test
 let mongoose = require("mongoose");
 let server = require("./app");
 let chai = require("chai");
