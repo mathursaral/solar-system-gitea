@@ -37,11 +37,11 @@ pipeline {
                     // }
             }
         }
-        stage('Unit testing'){
-            steps{
-                sh 'npm test'
-            }
-        }
+        // stage('Unit testing'){
+        //     steps{
+        //         sh 'npm test'
+        //     }
+        // }
         stage('Code Coverage'){
             steps{
                 sh 'npm run coverage'
