@@ -57,15 +57,19 @@ pipeline {
         }
         stage('SAST Sonarqube'){
             steps{
-                sh 'echo $SONAR_SCANNER_HOME'
-                sh '''
-                    $SONAR_SCANNER_HOME/bin/sonar-scanner \
-                    -Dsonar.projectKey=nodejs-solar-system \
-                    -Dsonar.sources=app.js \
-                    -Dsonar.host.url=http://172.17.0.2:9000 \
-                    -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info \
-                    -Dsonar.token=sqp_76b0aebbce6e799bd77dd76f52e266c6c29dcf14
-                '''
+                timeout(time: 300, unit: 'SECONDS'){
+                    withSonarQubeEnv('sonarqube'){
+                    sh 'echo $SONAR_SCANNER_HOME'
+                    sh '''
+                        $SONAR_SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.projectKey=nodejs-solar-system \
+                        -Dsonar.sources=app.js \
+                        -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
+                    '''
+                    }
+                    waitForQualityGate abortPipeline: true
+                }
+                                
             }
         }
         
