@@ -62,7 +62,7 @@ pipeline {
                     $SONAR_SCANNER_HOME/bin/sonar-scanner \
                     -Dsonar.projectKey=nodejs-solar-system \
                     -Dsonar.sources=app.js \
-                    -Dsonar.host.url=http://172.17.0.4:9000 \
+                    -Dsonar.host.url=http://172.17.0.2:9000 \
                     -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info \
                     -Dsonar.token=sqp_76b0aebbce6e799bd77dd76f52e266c6c29dcf14
                 '''
