@@ -18,7 +18,7 @@ pipeline {
                         steps{
                             sh """
                                 mkdir -p reports
-                                apt-get update -y && apt-get install -y jq
+                                sudo apt-get update -y && sudo apt-get install -y jq
                                 npm audit --audit-level=critical --json > audit-report.json
                                 cat audit-report.json | jq '.' > reports/audit-report.html
                             """
