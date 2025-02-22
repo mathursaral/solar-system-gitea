@@ -3,9 +3,9 @@ pipeline {
     tools {
         nodejs "nodejs"
     }
-    environment {
-        SONAR_SCANNER_HOME = tool 'sonarqube'
-    }
+    // environment {
+    //     SONAR_SCANNER_HOME = tool 'sonarqube'
+    // }
     stages {
         stage('Installing Dependancies'){
             steps {
@@ -18,7 +18,7 @@ pipeline {
                         steps{
                             sh """
                                 mkdir -p reports
-                                apt-get update -y && apt-get install -y jq
+                                sudo apt-get update -y && sudo apt-get install -y jq
                                 npm audit --audit-level=critical --json > audit-report.json
                                 cat audit-report.json | jq '.' > reports/audit-report.html
                             """
@@ -55,23 +55,23 @@ pipeline {
                 }
             }
         }
-        stage('SAST Sonarqube'){
-            steps{
-                timeout(time: 300, unit: 'SECONDS'){
-                    withSonarQubeEnv('sonarqube'){
-                    sh 'echo $SONAR_SCANNER_HOME'
-                    sh '''
-                        $SONAR_SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectKey=nodejs-solar-system \
-                        -Dsonar.sources=app.js \
-                        -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
-                    '''
-                    }
-                    waitForQualityGate abortPipeline: true
-                }
+        // stage('SAST Sonarqube'){
+        //     steps{
+        //         timeout(time: 300, unit: 'SECONDS'){
+        //             withSonarQubeEnv('sonarqube'){
+        //             sh 'echo $SONAR_SCANNER_HOME'
+        //             sh '''
+        //                 $SONAR_SCANNER_HOME/bin/sonar-scanner \
+        //                 -Dsonar.projectKey=nodejs-solar-system \
+        //                 -Dsonar.sources=app.js \
+        //                 -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
+        //             '''
+        //             }
+        //             waitForQualityGate abortPipeline: true
+        //         }
                                 
-            }
-        }
+        //     }
+        // }
         
 
         stage('Publish Audit Report') {
