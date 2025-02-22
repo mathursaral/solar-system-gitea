@@ -62,7 +62,7 @@ pipeline {
                     sh 'echo $SONAR_SCANNER_HOME'
                     sh '''
                         $SONAR_SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectKey=nodejs-solar-system \
+                        -Dsonar.projectKey=solar-system \
                         -Dsonar.sources=app.js \
                         -Dsonar.host.url=http://172.17.0.3:9000 \
                         -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
