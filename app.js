@@ -9,7 +9,7 @@ const cors = require("cors");
 const serverless = require("serverless-http");
 const dbURL =
   process.env.NODE_ENV === "test"
-    ? "mongodb://172.17.0.3:27017/solar?authSource=admin"
+    ? "mongodb://172.20.0.2:27017/solar?authSource=admin"
     : "mongodb://127.0.0.1:27017/solar?authSource=admin";
 
 app.use(bodyParser.json());
