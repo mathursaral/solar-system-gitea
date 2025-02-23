@@ -25,19 +25,6 @@ pipeline {
 
                         }
                     }
-                    // stage('OWASP Dependency-Check') {
-                    //      steps {
-                    //          script {
-                    //              def dependencyCheckHome = tool 'owasp' // Ensure it's configured in Jenkins Global Tool Configuration
-                    //              sh """
-                    //                  ${dependencyCheckHome}/bin/dependency-check.sh \
-                    //                  --scan . \
-                    //                  --format HTML \
-                    //                  --out reports/
-                    //              """
-                    //          }
-                    //      }
-                    // }
             }
         }
         stage('Unit testing'){
@@ -64,7 +51,7 @@ pipeline {
                         $SONAR_SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectKey=solar-system \
                         -Dsonar.sources=app.js \
-                        -Dsonar.host.url=http://172.17.0.3:9000 \
+                        -Dsonar.host.url=http://172.17.0.2:9000 \
                         -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
                     '''
                     }
@@ -82,6 +69,11 @@ pipeline {
                     reportFiles: 'reports/audit-report.html',
                     reportName: 'NPM Audit Report'
                 ])
+            }
+        }
+        stage('Build Docker Image'){
+            steps {
+                sh 'docker build -t solar-system .'
             }
         }
     }
